@@ -1,0 +1,3 @@
+name: overall_equipment_effectiveness_use_case
+externalId : {{ uc_oee_ds_external_id }}
+description : oee_dataset_description

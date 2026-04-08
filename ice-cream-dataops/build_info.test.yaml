@@ -2,38 +2,10 @@
 modules:
   version: 0.6.53
   modules:
-  - name: data_foundation
-    location:
-      path: modules/bootcamp/data_foundation
-      hash: f9d0ccb1
-    build_variables:
-    - key: icapi_ds_external_id
-      value: ds_icapi
-      is_selected: true
-      location: modules/bootcamp
-    - key: icapi_space_name
-      value: icapi_dm_space
-      is_selected: true
-      location: modules/bootcamp
-    - key: data_developer_source_id
-      value: ${DATA_DEVELOPER_SOURCE_ID}
-      is_selected: true
-      location: modules/bootcamp/data_foundation
-    resources:
-      auth:
-      - identifier:
-          name: data_developer
-        source:
-          path: /workspaces/ice-cream-dataops/ice-cream-dataops/modules/bootcamp/data_foundation/auth/data_developer.Group.yaml
-          hash: 51c4d4a4
-        kind: Group
-    warning_count: 0
-    status: Success
-    iteration: 1
   - name: oee
     location:
       path: modules/bootcamp/use_cases/oee
-      hash: 6baa9755
+      hash: 3e85df1c
     build_variables:
     - key: icapi_ds_external_id
       value: ds_icapi
@@ -102,10 +74,38 @@ modules:
     warning_count: 0
     status: Success
     iteration: 1
+  - name: data_foundation
+    location:
+      path: modules/bootcamp/data_foundation
+      hash: f9d0ccb1
+    build_variables:
+    - key: icapi_ds_external_id
+      value: ds_icapi
+      is_selected: true
+      location: modules/bootcamp
+    - key: icapi_space_name
+      value: icapi_dm_space
+      is_selected: true
+      location: modules/bootcamp
+    - key: data_developer_source_id
+      value: ${DATA_DEVELOPER_SOURCE_ID}
+      is_selected: true
+      location: modules/bootcamp/data_foundation
+    resources:
+      auth:
+      - identifier:
+          name: data_developer
+        source:
+          path: /workspaces/ice-cream-dataops/ice-cream-dataops/modules/bootcamp/data_foundation/auth/data_developer.Group.yaml
+          hash: 51c4d4a4
+        kind: Group
+    warning_count: 0
+    status: Success
+    iteration: 1
   - name: ice_cream_api
     location:
       path: modules/bootcamp/ice_cream_api
-      hash: 85f1b067
+      hash: eaccde87
     build_variables:
     - key: icapi_ds_external_id
       value: ds_icapi
@@ -177,6 +177,26 @@ modules:
           path: /workspaces/ice-cream-dataops/ice-cream-dataops/modules/bootcamp/ice_cream_api/raw/ice-cream-factory-db.Table.yaml
           hash: de947829
         kind: Database
+      workflows:
+      - identifier:
+          externalId: wf_icapi_data_pipeline
+        source:
+          path: /workspaces/ice-cream-dataops/ice-cream-dataops/modules/bootcamp/ice_cream_api/workflows/wf_icapi_data_pipeline.WorkFlow.yaml
+          hash: 37e10fd1
+        kind: Workflow
+      - identifier:
+          workflowExternalId: wf_icapi_data_pipeline
+          version: '1'
+        source:
+          path: /workspaces/ice-cream-dataops/ice-cream-dataops/modules/bootcamp/ice_cream_api/workflows/wf_icapi_data_pipeline.WorkFlowVersion.yaml
+          hash: 7198172b
+        kind: WorkflowVersion
+      - identifier:
+          externalId: icapi_trigger
+        source:
+          path: /workspaces/ice-cream-dataops/ice-cream-dataops/modules/bootcamp/ice_cream_api/workflows/wf_icapi_data_pipeline.WorkflowTrigger.yaml
+          hash: 4bb02ead
+        kind: WorkflowTrigger
       functions:
       - identifier:
           externalId: icapi_datapoints_extractor
@@ -291,6 +311,6 @@ modules:
           path: /workspaces/ice-cream-dataops/ice-cream-dataops/modules/bootcamp/ice_cream_api/transformations/create_asset_hierarchy.schedule.yaml
           hash: 3ab1b293
         kind: Schedule
-    warning_count: 2
+    warning_count: 3
     status: Success
     iteration: 1
